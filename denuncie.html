@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Registro de Ocorrências e Relatos Institucionais — Apesar de VOCÊ</title>
+    <meta name="description" content="Sistema oficial de recepção, registro e triagem de ocorrências e violações de direitos. Criptografia ponta a ponta e protocolo individualizado.">
+    <link rel="icon" type="image/png" href="/imagens/logosite.png">
+
+    <!-- Google Fonts: Inter & Roboto Mono (Padrão para sistemas oficiais e recibos) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            purple: '#240C23',      /* Roxo denso / Tom governamental */
+                            purpleLight: '#381637',
+                            carmine: '#C0004D',     /* Carmim sóbrio */
+                            carmineDark: '#99003D',
+                            roseSoft: '#F4F1F4',    /* Cinza/Rosa de alta legibilidade industrial */
+                            roseBorder: '#E2D8E2',
+                            offWhite: '#FAFAFA',
+                            dark: '#1F1C23',
+                            muted: '#524C5A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :focus-visible {
+            outline: 2px solid #C0004D !important;
+            outline-offset: 2px !important;
+        }
+        .custom-checkbox:checked, .custom-radio:checked {
+            background-color: #C0004D;
+            border-color: #C0004D;
+        }
+        .security-badge {
+            background: linear-gradient(90deg, #240C23 0%, #381637 100%);
+        }
+    </style>
+</head>
+<body class="bg-brand-roseSoft text-brand-dark font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-brand-carmine selection:text-white">
+
+    <!-- =================================================================== -->
+    <!-- BARRA DE SEGURANÇA E CONEXÃO SEGURA (PADRÃO GOVERNAMENTAL)           -->
+    <!-- =================================================================== -->
+    <div role="region" aria-label="Status do Protocolo e Segurança" class="fixed top-0 left-0 right-0 z-50 bg-brand-purple text-white text-[11px] py-1.5 px-4 shadow-md flex justify-between items-center border-b border-brand-carmine/40">
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="flex items-center gap-1.5 font-bold text-white hover:text-brand-roseBorder transition-colors bg-white/10 hover:bg-white/20 px-2.5 py-0.5 rounded text-[11px]">
+                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                <span>RETORNAR AO PORTAL</span>
+            </a>
+            <span class="hidden sm:inline-block text-white/30">|</span>
+            <span class="hidden sm:flex items-center gap-1.5 font-mono text-emerald-400">
+                <i class="fa-solid fa-lock text-[10px]"></i> SSL 256-BIT • AMBIENTE MONITORADO
+            </span>
+        </div>
+
+        <button onclick="saidaRapida()" title="Encerrar sessão e redirecionar imediatamente" class="bg-brand-carmine hover:bg-brand-carmineDark text-white font-mono font-bold px-3 py-0.5 rounded text-[11px] transition-all flex items-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-person-running" aria-hidden="true"></i> 
+            <span>ENCERRAR SESSÃO DE EMERGÊNCIA (ESC)</span>
+        </button>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- CABEÇALHO INSTITUCIONAL / IDENTIFICAÇÃO OFICIAL                    -->
+    <!-- =================================================================== -->
+    <header class="pt-14 pb-4 bg-white border-b border-brand-roseBorder shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-brand-purple text-white rounded flex items-center justify-center font-bold text-xl border-b-2 border-brand-carmine shadow-xs">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-lg text-brand-purple uppercase tracking-tight">SISTEMA INTEGRADO DE REGISTRO E OCORRÊNCIAS</span>
+                        <span class="hidden sm:inline-block bg-brand-purple/10 text-brand-purple text-[10px] font-mono font-bold px-2 py-0.5 rounded uppercase">SRO-ADV v4.2</span>
+                    </div>
+                    <span class="text-xs text-brand-muted font-medium block">Plataforma Institucional de Atendimento, Apoio e Proteção às Mulheres</span>
+                </div>
+            </div>
+
+            <nav aria-label="Navegação Oficial" class="hidden md:flex items-center gap-5 text-xs font-semibold">
+                <a href="index.html" class="text-brand-muted hover:text-brand-carmine">Início</a>
+                <a href="entenda-a-violencia.html" class="text-brand-muted hover:text-brand-carmine">Tipificação</a>
+                <a href="direitos.html" class="text-brand-muted hover:text-brand-carmine">Legislação</a>
+                <a href="contatos.html" class="text-brand-muted hover:text-brand-carmine">Rede Oficial</a>
+                <a href="denuncie.html" class="text-brand-carmine font-bold border-b-2 border-brand-carmine pb-0.5" aria-current="page">Registro de Ocorrência</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+<!-- BANNER DE LIGAÇÃO IMEDIATA (BOTÃO DE EMERGÊNCIA DE ALTO IMPACTO) -->
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2" aria-label="Chamada de Emergência Imediata">
+    <div class="bg-gradient-to-r from-red-700 via-red-600 to-brand-carmine rounded-3xl p-6 sm:p-8 text-white shadow-2xl border-4 border-red-800 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+        
+        <!-- Elemento de Fundo Decorativo/Alerta -->
+        <div class="absolute -right-10 -bottom-10 opacity-10 text-white text-9xl pointer-events-none" aria-hidden="true">
+            <i class="fa-solid fa-phone-volume"></i>
+        </div>
+
+        <!-- Texto explicativo de fácil leitura -->
+        <div class="space-y-2 text-center md:text-left z-10 max-w-xl">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-white/20 text-white border border-white/30">
+                <span class="w-2 h-2 rounded-full bg-white animate-ping"></span> PREFERE NÃO PREENCHER O FORMULÁRIO?
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight font-serif text-white">
+                Ligue Agora para Socorro Imediato
+            </h2>
+            <p class="text-xs sm:text-sm text-white/90 leading-relaxed">
+                Você não precisa preencher este relato se estiver em perigo ou preferir falar diretamente por telefone. O atendimento é gratuito e sigiloso.
+            </p>
+        </div>
+
+        <!-- GRUPO DE BOTÕES DE LIGAÇÃO DIRETA -->
+        <div class="flex flex-col sm:flex-row w-full md:w-auto gap-3 z-10">
+            <!-- Botão 190 — Emergência Policial (Destaque Pulsante) -->
+            <a href="tel:190" aria-label="Ligar para emergência policial 190" class="group relative py-4 px-6 rounded-2xl bg-white hover:bg-red-50 text-red-700 font-extrabold text-sm sm:text-base flex items-center justify-center gap-3 transition-all duration-300 transform hover:-translate-y-1 shadow-lg border-2 border-red-200">
+                <span class="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center text-lg group-hover:scale-110 transition-transform shadow-md animate-pulse">
+                    <i class="fa-solid fa-phone-volume"></i>
+                </span>
+                <div class="text-left leading-tight">
+                    <span class="block text-[10px] uppercase tracking-wider text-red-800 font-bold">EMERGÊNCIA 24H</span>
+                    <span class="text-xl font-black font-mono">POLÍCIA 190</span>
+                </div>
+            </a>
+
+            <!-- Botão 180 — Central de Atendimento à Mulher -->
+            <a href="tel:180" aria-label="Ligar para a Central Ligue 180" class="group py-4 px-6 rounded-2xl bg-brand-purple hover:bg-brand-purpleLight text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-3 transition-all duration-300 transform hover:-translate-y-1 shadow-lg border border-white/20">
+                <span class="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-headset"></i>
+                </span>
+                <div class="text-left leading-tight">
+                    <span class="block text-[10px] uppercase tracking-wider text-white/80 font-bold">ORIENTAÇÃO & APOIO</span>
+                    <span class="text-xl font-black font-mono">LIGUE 180</span>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</section>
+        <!-- =================================================================== -->
+        <!-- BANNER DE IDENTIFICAÇÃO DE PROTOCOLO E ORIENTAÇÃO INICIAL           -->
+        <!-- =================================================================== -->
+        <section class="bg-white border-b border-brand-roseBorder py-8">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+                
+                <div class="border-l-4 border-brand-carmine pl-4 space-y-1">
+                    <span class="text-xs font-mono font-bold text-brand-carmine uppercase tracking-widest">FORMULÁRIO OFICIAL DE NOTIFICAÇÃO E ACOLHIMENTO</span>
+                    <h1 class="text-2xl sm:text-4xl font-extrabold text-brand-purple tracking-tight">
+                        Registro Formal de Relato ou Ocorrência
+                    </h1>
+                    <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
+                        Este portal destina-se ao recebimento, catalogação e triagem de violações de direitos de mulheres cis, mulheres trans e travestis. As informações aqui prestadas são tratadas sob protocolo de sigilo e criptografia de segurança.
+                    </p>
+                </div>
+
+                <!-- CARDS DE ACIONAMENTO DE URGÊNCIA / POLÍCIA -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                    
+                    <div class="bg-red-50 p-4 rounded border border-red-200 flex items-start gap-3">
+                        <i class="fa-solid fa-triangle-exclamation text-red-600 text-lg mt-0.5"></i>
+                        <div class="space-y-1 text-xs">
+                            <strong class="text-red-950 font-bold block">FLUXO DE EMERGÊNCIA POLICIAL (190)</strong>
+                            <p class="text-red-900/80 leading-normal">
+                                Em caso de agressão iminente ou risco imediato à vida, acione imediatamente a Polícia Militar.
+                            </p>
+                            <a href="tel:190" class="inline-flex items-center gap-1 font-bold text-red-700 hover:underline pt-1">
+                                <i class="fa-solid fa-phone"></i> Efetuar Chamada 190
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-brand-roseSoft p-4 rounded border border-brand-roseBorder flex items-start gap-3">
+                        <i class="fa-solid fa-headset text-brand-purple text-lg mt-0.5"></i>
+                        <div class="space-y-1 text-xs">
+                            <strong class="text-brand-purple font-bold block">CENTRAL DE ATENDIMENTO 180</strong>
+                            <p class="text-brand-muted leading-normal">
+                                Canal público nacional de orientação, denúncia e mapeamento da rede de apoio à mulher.
+                            </p>
+                            <a href="tel:180" class="inline-flex items-center gap-1 font-bold text-brand-carmine hover:underline pt-1">
+                                <i class="fa-solid fa-phone"></i> Efetuar Chamada 180
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-brand-roseSoft p-4 rounded border border-brand-roseBorder flex items-start gap-3">
+                        <i class="fa-solid fa-user-shield text-brand-purple text-lg mt-0.5"></i>
+                        <div class="space-y-1 text-xs">
+                            <strong class="text-brand-purple font-bold block">PRESERVAÇÃO DE SIGILO</strong>
+                            <p class="text-brand-muted leading-normal">
+                                É franqueada a opção de registro anônimo ou identificado, conforme a autonomia da declarante.
+                            </p>
+                            <button onclick="scrollParaFormulario()" class="inline-flex items-center gap-1 font-bold text-brand-purple hover:underline pt-1">
+                                <i class="fa-solid fa-arrow-down"></i> Iniciar Formulário
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- SISTEMA MULTIPASSO DE REGISTRO (PAINEL TÉCNICO)                    -->
+        <!-- =================================================================== -->
+        <section id="secaoFormularioOficial" class="py-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="bg-white rounded border border-brand-roseBorder shadow-md overflow-hidden">
+                
+                <!-- CABEÇALHO DO PAINEL DE PROTOCOLO -->
+                <div class="security-badge text-white p-5 border-b border-brand-carmine flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <span class="text-[10px] font-mono font-bold text-brand-roseBorder uppercase tracking-widest block">FORMULÁRIO ELETRÔNICO DE NOTIFICAÇÃO</span>
+                        <h2 id="stepTitleHeader" class="text-lg font-bold">Fase 1: Classificação do Fato / Ocorrência</h2>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+                        <div class="text-right font-mono text-xs">
+                            <span class="text-white/60 block text-[10px]">PROTOCOLO PROVISÓRIO</span>
+                            <span id="tempProtocolNum" class="font-bold text-emerald-400">CAD-2026-0000</span>
+                        </div>
+                        <div class="bg-white/10 px-3 py-1 rounded text-xs font-mono font-bold">
+                            <span id="stepProgressText">ETAPA 1/6</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BARRA DE ETAPAS INTERATIVAS (BREADCRUMB GOVERNAMENTAL) -->
+                <div class="bg-gray-100 border-b border-gray-200 px-4 py-2 flex overflow-x-auto text-[11px] font-semibold text-brand-muted gap-4" id="wizardStepperNav">
+                    <span class="text-brand-carmine font-bold flex items-center gap-1"><i class="fa-solid fa-circle-dot text-[9px]"></i> 1. Tipo de Fato</span>
+                    <span class="flex items-center gap-1 opacity-50"><i class="fa-solid fa-chevron-right text-[8px]"></i> 2. Ocorrência</span>
+                    <span class="flex items-center gap-1 opacity-50"><i class="fa-solid fa-chevron-right text-[8px]"></i> 3. Envolvidos</span>
+                    <span class="flex items-center gap-1 opacity-50"><i class="fa-solid fa-chevron-right text-[8px]"></i> 4. Avaliação Risco</span>
+                    <span class="flex items-center gap-1 opacity-50"><i class="fa-solid fa-chevron-right text-[8px]"></i> 5. Provas/Anexos</span>
+                    <span class="flex items-center gap-1 opacity-50"><i class="fa-solid fa-chevron-right text-[8px]"></i> 6. Identificação</span>
+                </div>
+
+                <!-- CORPO DO FORMULÁRIO -->
+                <form id="formOficialRelato" onsubmit="event.preventDefault();" class="p-6 sm:p-8 space-y-6">
+
+                    <!-- ======================================================= -->
+                    <!-- FASE 1: CLASSIFICAÇÃO DA TIPIFICAÇÃO                    -->
+                    <!-- ======================================================= -->
+                    <div id="step1" class="step-container space-y-5">
+                        <div class="bg-brand-roseSoft p-3.5 rounded border-l-4 border-brand-purple text-xs text-brand-dark">
+                            <strong>Instruções de Preenchimento:</strong> Marque a tipificação principal ou a modalidade de violação observada. É permitida a seleção de múltiplos quesitos para o correto enquadramento da triagem.
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                            <label class="flex items-start gap-3 p-3.5 bg-white border border-gray-300 rounded hover:border-brand-carmine cursor-pointer">
+                                <input type="checkbox" name="tipificacao" value="fisica" class="mt-0.5 custom-checkbox">
+                                <div>
+                                    <strong class="text-brand-purple block uppercase font-bold text-[11px]">Violência Física</strong>
+                                    <span class="text-brand-muted">Agressões corporais, lesões, vias de fato ou uso de força física.</span>
+                                </div>
+                            </label>
+
+                            <label class="flex items-start gap-3 p-3.5 bg-white border border-gray-300 rounded hover:border-brand-carmine cursor-pointer">
+                                <input type="checkbox" name="tipificacao" value="psicologica" class="mt-0.5 custom-checkbox">
+                                <div>
+                                    <strong class="text-brand-purple block uppercase font-bold text-[11px]">Violência Psicológica / Coerção</strong>
+                                    <span class="text-brand-muted">Ameaças, constrangimento, humilhação, manipulação ou isolamento.</span>
+                                </div>
+                            </label>
+
+                            <label class="flex items-start gap-3 p-3.5 bg-white border border-gray-300 rounded hover:border-brand-carmine cursor-pointer">
+                                <input type="checkbox" name="tipificacao" value="sexual" class="mt-0.5 custom-checkbox">
+                                <div>
+                                    <strong class="text-brand-purple block uppercase font-bold text-[11px]">Violência Sexual</strong>
+                                    <span class="text-brand-muted">Atos sexuais não consentidos, estupro ou coerção reprodutiva.</span>
+                                </div>
+                            </label>
+
+                            <label class="flex items-start gap-3 p-3.5 bg-white border border-gray-300 rounded hover:border-brand-carmine cursor-pointer">
+                                <input type="checkbox" name="tipificacao" value="patrimonial" class="mt-0.5 custom-checkbox">
+                                <div>
+                                    <strong class="text-brand-purple block uppercase font-bold text-[11px]">Violência Patrimonial / Financeira</strong>
+                                    <span class="text-brand-muted">Retenção de documentos, dinheiro, instrumentos de trabalho ou destruição de bens.</span>
+                                </div>
+                            </label>
+
+                            <label class="flex items-start gap-3 p-3.5 bg-white border border-gray-300 rounded hover:border-brand-carmine cursor-pointer">
+                                <input type="checkbox" name="tipificacao" value="moral" class="mt-0.5 custom-checkbox">
+                                <div>
+                                    <strong class="text-brand-purple block uppercase font-bold text-[11px]">Violência Moral / Calúnia / Injúria</strong>
+                                    <span class="text-brand-muted">Difamação, calúnia, injúria ou exposição indevida da reputação.</span>
+                                </div>
+                            </label>
+
+                            <label class="flex items-start gap-3 p-3.5 bg-white border border-gray-300 rounded hover:border-brand-carmine cursor-pointer">
+                                <input type="checkbox" name="tipificacao" value="perseguicao_digital" class="mt-0.5 custom-checkbox">
+                                <div>
+                                    <strong class="text-brand-purple block uppercase font-bold text-[11px]">Perseguição / Stalking / Cibernética</strong>
+                                    <span class="text-brand-muted">Monitoramento de dispositivos, invasão de privacidade ou perseguição reiterada.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- ======================================================= -->
+                    <!-- FASE 2: RELATO DETALHADO DA OCORRÊNCIA                   -->
+                    <!-- ======================================================= -->
+                    <div id="step2" class="step-container hidden space-y-5">
+                        <div class="space-y-1">
+                            <label class="block text-xs font-bold text-brand-purple uppercase">Histórico e Descrição Fática dos Acontecimentos:</label>
+                            <span class="text-[11px] text-brand-muted block">Descreva com precisão de datas, horários e dinâmica dos fatos. Evite dados desnecessários ou que coloquem você em risco.</span>
+                        </div>
+
+                        <textarea name="historicoFatos" id="inputHistoricoFatos" rows="6" maxlength="4000" onkeyup="atualizarContador()" placeholder="Relate o ocorrido com o maior nível de detalhamento fático possível..." class="w-full p-3 bg-gray-50 border border-gray-300 rounded text-xs font-sans focus:bg-white focus:outline-none focus:border-brand-carmine leading-relaxed"></textarea>
+                        
+                        <div class="flex justify-between items-center text-[11px] font-mono text-brand-muted">
+                            <span>REQUISITO: TEXTO LIVRE CRIPTOGRAFADO</span>
+                            <span><span id="charCounterVal">0</span>/4000 Caracteres</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                            <div>
+                                <label class="block text-xs font-bold text-brand-purple uppercase mb-1">Período / Temporalidade dos Fatos:</label>
+                                <select name="periodoFatos" class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded text-xs focus:outline-none focus:border-brand-carmine">
+                                    <option value="recente">Ocorrido nas últimas 24 horas</option>
+                                    <option value="7dias">Ocorrido nos últimos 7 dias</option>
+                                    <option value="meses">Ocorrido nos últimos meses</option>
+                                    <option value="recorrente">Ocorrência contínua / Sistêmica</option>
+                                    <option value="nao_informado">Não determinado / Prefiro não informar</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-brand-purple uppercase mb-1">Município e Estado do Fato (Opcional):</label>
+                                <input type="text" name="localidadeFatos" placeholder="Ex: Salvador / BA" class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded text-xs focus:outline-none focus:border-brand-carmine">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======================================================= -->
+                    <!-- FASE 3: QUALIFICAÇÃO DOS ENVOLVIDOS                     -->
+                    <!-- ======================================================= -->
+                    <div id="step3" class="step-container hidden space-y-5">
+                        <div class="bg-gray-50 p-3.5 rounded border border-gray-200 text-xs">
+                            <strong class="text-brand-purple uppercase block font-bold mb-1">Qualificação da Vítima / Declarante:</strong>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                                <div>
+                                    <label class="block text-[11px] font-bold text-brand-muted uppercase mb-1">Condição da Declarante:</label>
+                                    <select name="condicaoDeclarante" class="w-full p-2 bg-white border border-gray-300 rounded text-xs">
+                                        <option value="propria_vitima">A própria vítima da ocorrência</option>
+                                        <option value="terceiro">Terceira pessoa informante / Comunicante</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-brand-muted uppercase mb-1">Nome Social / Nome de Registro (Opcional):</label>
+                                    <input type="text" name="nomeVitimaDeclarante" placeholder="Nome de identificação" class="w-full p-2 bg-white border border-gray-300 rounded text-xs">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 p-3.5 rounded border border-gray-200 text-xs">
+                            <strong class="text-brand-purple uppercase block font-bold mb-1">Qualificação da Pessoa Apontada / Suspeito(a):</strong>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                                <div>
+                                    <label class="block text-[11px] font-bold text-brand-muted uppercase mb-1">Nome ou Apelido do Mencionado (Opcional):</label>
+                                    <input type="text" name="nomeSuspeito" placeholder="Nome completo ou alcunha" class="w-full p-2 bg-white border border-gray-300 rounded text-xs">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-brand-muted uppercase mb-1">Vínculo / Relação com a Vítima:</label>
+                                    <select name="vinculoSuspeito" class="w-full p-2 bg-white border border-gray-300 rounded text-xs">
+                                        <option value="conjuge">Cônjuge / Companheiro(a) Atual</option>
+                                        <option value="ex_conjuge">Ex-Cônjuge / Ex-Companheiro(a)</option>
+                                        <option value="familiar">Parentesco / Familiar</option>
+                                        <option value="trabalho">Relação de Trabalho / Hierarquia</option>
+                                        <option value="conhecido">Conhecido(a) / Vizinho(a)</option>
+                                        <option value="desconhecido">Sem vínculo prévio / Desconhecido(a)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======================================================= -->
+                    <!-- FASE 4: AVALIAÇÃO DE RISCO E MEDIDAS DE PROTEÇÃO         -->
+                    <!-- ======================================================= -->
+                    <div id="step4" class="step-container hidden space-y-5">
+                        <div class="p-4 bg-red-50 border border-red-200 rounded text-xs space-y-2">
+                            <strong class="text-red-950 font-bold uppercase flex items-center gap-1.5">
+                                <i class="fa-solid fa-triangle-exclamation text-red-600"></i> Avaliação Objetiva de Vulnerabilidade:
+                            </strong>
+                            <p class="text-red-900 leading-relaxed">
+                                Responda para fins de priorização na triagem de atendimento.
+                            </p>
+                        </div>
+
+                        <div class="space-y-3 text-xs">
+                            <label class="block font-bold text-brand-purple uppercase">1. O(A) apontado(a) possui acesso direto à sua residência ou local de trabalho?</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center gap-1.5"><input type="radio" name="acessoResidencia" value="sim" class="custom-radio"> SIM</label>
+                                <label class="flex items-center gap-1.5"><input type="radio" name="acessoResidencia" value="nao" class="custom-radio"> NÃO</label>
+                            </div>
+
+                            <label class="block font-bold text-brand-purple uppercase pt-2">2. Há histórico de ameaças de morte ou uso de armas de fogo?</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center gap-1.5"><input type="radio" name="ameacaArma" value="sim" class="custom-radio"> SIM</label>
+                                <label class="flex items-center gap-1.5"><input type="radio" name="ameacaArma" value="nao" class="custom-radio"> NÃO</label>
+                            </div>
+
+                            <label class="block font-bold text-brand-purple uppercase pt-2">3. Já existe Medida Protetiva de Urgência (MPU) expedida pela Justiça?</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center gap-1.5"><input type="radio" name="medidaProtetivaJudicial" value="sim" class="custom-radio"> SIM, MPU ATIVA</label>
+                                <label class="flex items-center gap-1.5"><input type="radio" name="medidaProtetivaJudicial" value="nao" class="custom-radio"> NÃO POSSUO</label>
+                                <label class="flex items-center gap-1.5"><input type="radio" name="medidaProtetivaJudicial" value="andamento" class="custom-radio"> EM TRAMITAÇÃO</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ======================================================= -->
+                    <!-- FASE 5: DOCUMENTAÇÃO E PROVAS COMPLEMENTARES           -->
+                    <!-- ======================================================= -->
+                    <div id="step5" class="step-container hidden space-y-5">
+                        <div class="space-y-1">
+                            <label class="block text-xs font-bold text-brand-purple uppercase">Juntada de Documentos / Provas Digitais (Opcional):</label>
+                            <span class="text-[11px] text-brand-muted block">Anexe capturas de tela (prints), documentos digitais em PDF ou registros de conversas que auxiliem no exame da solicitação.</span>
+                        </div>
+
+                        <div class="border-2 border-dashed border-gray-300 rounded p-6 text-center space-y-2 bg-gray-50 hover:bg-white transition-colors">
+                            <i class="fa-solid fa-file-arrow-up text-2xl text-brand-purple"></i>
+                            <div class="text-xs text-brand-dark">
+                                <strong>Clique para carregar arquivos de prova</strong> (PDF, JPG, PNG)
+                            </div>
+                            <span class="text-[10px] text-brand-muted block font-mono">LIMITE: 10MB POR ARQUIVO • CRIPTOGRAFIA DE BANCO FECHADO</span>
+                            <input type="file" id="inputProvasFiles" multiple accept="image/*,.pdf" onchange="processarArquivosOficiais(this.files)" class="hidden">
+                            <button type="button" onclick="document.getElementById('inputProvasFiles').click()" class="mt-2 px-4 py-1.5 bg-brand-purple text-white font-mono font-bold text-xs rounded">SELECIONAR DOCUMENTOS</button>
+                        </div>
+
+                        <div id="listaAnexosOficialContainer" class="space-y-2">
+                            <!-- Lista gerada dinamicamente via JS -->
+                        </div>
+                    </div>
+
+                    <!-- ======================================================= -->
+                    <!-- FASE 6: TERMO DE ADESÃO E CANAL DE CONTATO              -->
+                    <!-- ======================================================= -->
+                    <div id="step6" class="step-container hidden space-y-5">
+                        <div class="space-y-1">
+                            <label class="block text-xs font-bold text-brand-purple uppercase">Modalidade de Registro e Contato:</label>
+                            <span class="text-[11px] text-brand-muted block">Escolha se deseja receber atualizações do protocolo por canal sigiloso.</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[11px] font-bold text-brand-purple uppercase mb-1">E-mail para Notificação Sigilosa:</label>
+                                <input type="email" name="emailContatoSigiloso" placeholder="seu-email-seguro@provedor.com" class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded text-xs focus:outline-none focus:border-brand-carmine">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-brand-purple uppercase mb-1">Telefone / Mensageiro de Contato:</label>
+                                <input type="tel" name="telefoneContatoSigiloso" placeholder="(00) 00000-0000" class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded text-xs focus:outline-none focus:border-brand-carmine">
+                            </div>
+                        </div>
+
+                        <div class="p-3.5 bg-gray-100 border border-gray-300 rounded text-[11px] text-brand-muted space-y-2">
+                            <label class="flex items-start gap-2 cursor-pointer">
+                                <input type="checkbox" id="checkTermoOficial" class="mt-0.5 custom-checkbox">
+                                <span>DECLARO que as informações prestadas neste formulário são verdadeiras para os devidos fins de acolhimento e triagem institucional no portal Apesar de VOCÊ, estando ciente de que o presente registro não substitui o Boletim de Ocorrência formal expedido pelas Polícias Civis dos Estados.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- BOTÕES DE NAVEGAÇÃO DE FASES -->
+                    <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+                        <button type="button" id="btnStepPrev" onclick="mudarPassoOficial(-1)" class="px-5 py-2 rounded bg-gray-200 text-brand-dark text-xs font-bold hover:bg-gray-300 transition-colors hidden">
+                            <i class="fa-solid fa-chevron-left mr-1"></i> FASE ANTERIOR
+                        </button>
+
+                        <button type="button" id="btnStepNext" onclick="mudarPassoOficial(1)" class="ml-auto px-6 py-2.5 rounded bg-brand-carmine hover:bg-brand-carmineDark text-white text-xs font-mono font-bold transition-all shadow-sm">
+                            PRÓXIMA FASE <i class="fa-solid fa-chevron-right ml-1"></i>
+                        </button>
+
+                        <button type="button" id="btnStepSubmit" onclick="submeterRelatoOficial()" class="ml-auto px-6 py-2.5 rounded bg-brand-purple hover:bg-brand-purpleLight text-white text-xs font-mono font-bold transition-all shadow-md hidden">
+                            <i class="fa-solid fa-lock mr-1"></i> TRANSMITIR PROTOCOLO
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- CONFIRMAÇÃO DE EMISSÃO DE PROTOCOLO (RECIBO OFICIAL)              -->
+        <!-- =================================================================== -->
+        <section id="secaoReciboProtocolo" class="hidden py-12 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded border border-gray-300 shadow-xl p-6 sm:p-10 space-y-6">
+                
+                <div class="border-b border-gray-300 pb-4 text-center space-y-2">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center text-xl mx-auto">
+                        <i class="fa-solid fa-file-contract"></i>
+                    </div>
+                    <span class="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-widest block">REGISTRO TRANSMITIDO COM SUCESSO</span>
+                    <h3 class="text-2xl font-extrabold text-brand-purple uppercase">Comprovante de Notificação Eletrônica</h3>
+                </div>
+
+                <div class="bg-gray-50 border border-gray-200 p-4 rounded font-mono text-xs space-y-2 text-brand-dark">
+                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                        <span>CÓDIGO DE PROTOCOLO:</span>
+                        <strong id="finalProtocolCode" class="text-brand-carmine">ADV-2026-8942</strong>
+                    </div>
+                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                        <span>DATA DE TRANSMISSÃO:</span>
+                        <span id="finalTimestamp">03/11/2026 - 22:30:00</span>
+                    </div>
+                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                        <span>STATUS DA TRIAGEM:</span>
+                        <span class="text-emerald-700 font-bold">EM FILA DE ANÁLISE PRIVADA</span>
+                    </div>
+                </div>
+
+                <p class="text-xs text-brand-muted leading-relaxed text-center">
+                    Guarde o código de protocolo acima para futuras referências. Suas informações foram armazenadas em banco criptografado e encaminhadas para a equipe de acolhimento do projeto.
+                </p>
+
+                <div class="pt-4 flex flex-wrap justify-center gap-3">
+                    <a href="index.html" class="px-5 py-2 rounded bg-brand-purple text-white text-xs font-mono font-bold">VOLTAR AO PORTAL PRINCIPAL</a>
+                    <button onclick="saidaRapida()" class="px-5 py-2 rounded bg-brand-carmine text-white text-xs font-mono font-bold">ENCERRAR E FECHAR (ESC)</button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =================================================================== -->
+    <!-- RODAPÉ INSTITUCIONAL                                               -->
+    <!-- =================================================================== -->
+    <footer class="bg-brand-purple text-white py-6 border-t border-brand-carmine/30 mt-12 text-xs">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2 text-white/60">
+            <p><strong>Apesar de VOCÊ</strong> — Sistema de Registro e Orientação Institucional.</p>
+            <p class="font-mono text-[11px]">Em emergência policial ligue 190. Atendimento nacional de direitos da mulher ligue 180.</p>
+        </div>
+    </footer>
+
+    <!-- =================================================================== -->
+    <!-- SCRIPT DE CONTROLE E PROTOCOLO                                     -->
+    <!-- =================================================================== -->
+    <script>
+        let currentOficialStep = 1;
+        const maxOficialSteps = 6;
+        let arquivosOficiaisCarregados = [];
+
+        const titulosEtapasOficiais = [
+            "Fase 1: Classificação do Fato / Ocorrência",
+            "Fase 2: Relato Detalhado da Ocorrência",
+            "Fase 3: Qualificação dos Envolvidos",
+            "Fase 4: Avaliação de Risco e Proteção",
+            "Fase 5: Documentação e Provas Complementares",
+            "Fase 6: Termo de Adesão e Contato"
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Gerar protocolo temporário de exibição
+            const rand = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('tempProtocolNum').innerText = `CAD-2026-${rand}`;
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') saidaRapida();
+            });
+        });
+
+        function scrollParaFormulario() {
+            document.getElementById('secaoFormularioOficial').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function atualizarContador() {
+            const txt = document.getElementById('inputHistoricoFatos').value;
+            document.getElementById('charCounterVal').innerText = txt.length;
+        }
+
+        function mudarPassoOficial(delta) {
+            const next = currentOficialStep + delta;
+            if (next < 1 || next > maxOficialSteps) return;
+
+            document.getElementById(`step${currentOficialStep}`).classList.add('hidden');
+            currentOficialStep = next;
+            document.getElementById(`step${currentOficialStep}`).classList.remove('hidden');
+
+            // Atualizar cabeçalhos formais
+            document.getElementById('stepTitleHeader').innerText = titulosEtapasOficiais[currentOficialStep - 1];
+            document.getElementById('stepProgressText').innerText = `ETAPA ${currentOficialStep}/${maxOficialSteps}`;
+
+            // Atualizar Breadcrumb visual
+            atualizarStepperBreadcrumb(currentOficialStep);
+
+            // Controle dos botões
+            document.getElementById('btnStepPrev').classList.toggle('hidden', currentOficialStep === 1);
+            if (currentOficialStep === maxOficialSteps) {
+                document.getElementById('btnStepNext').classList.add('hidden');
+                document.getElementById('btnStepSubmit').classList.remove('hidden');
+            } else {
+                document.getElementById('btnStepNext').classList.remove('hidden');
+                document.getElementById('btnStepSubmit').classList.add('hidden');
+            }
+        }
+
+        function atualizarStepperBreadcrumb(step) {
+            const items = document.querySelectorAll('#wizardStepperNav span');
+            items.forEach((item, index) => {
+                if (index + 1 === step) {
+                    item.className = "text-brand-carmine font-bold flex items-center gap-1 opacity-100";
+                } else if (index + 1 < step) {
+                    item.className = "text-brand-purple font-semibold flex items-center gap-1 opacity-80";
+                } else {
+                    item.className = "flex items-center gap-1 opacity-40";
+                }
+            });
+        }
+
+        function processarArquivosOficiais(files) {
+            const container = document.getElementById('listaAnexosOficialContainer');
+            Array.from(files).forEach(f => {
+                arquivosOficiaisCarregados.push(f.name);
+                const item = document.createElement('div');
+                item.className = "flex justify-between items-center p-2 bg-gray-100 border border-gray-300 rounded text-xs font-mono";
+                item.innerHTML = `<span><i class="fa-solid fa-file text-brand-purple mr-1"></i>${f.name}</span> <span class="text-emerald-700 font-bold">CARREGADO</span>`;
+                container.appendChild(item);
+            });
+        }
+
+        function submeterRelatoOficial() {
+            if (!document.getElementById('checkTermoOficial').checked) {
+                alert("É necessário declarar o aceite do termo de validação das informações antes de transmitir o protocolo.");
+                return;
+            }
+
+            const btn = document.getElementById('btnStepSubmit');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> TRANSMITINDO DADOS...';
+
+            setTimeout(() => {
+                const protocoloFinal = 'ADV-2026-' + Math.floor(100000 + Math.random() * 900000);
+                document.getElementById('finalProtocolCode').innerText = protocoloFinal;
+                document.getElementById('finalTimestamp').innerText = new Date().toLocaleString('pt-BR');
+
+                document.getElementById('secaoFormularioOficial').classList.add('hidden');
+                document.getElementById('secaoReciboProtocolo').classList.remove('hidden');
+                document.getElementById('secaoReciboProtocolo').scrollIntoView({ behavior: 'smooth' });
+            }, 1200);
+        }
+
+        function saidaRapida() {
+            window.location.replace("https://www.google.com");
+        }
+    </script>
+</body>
+</html>
