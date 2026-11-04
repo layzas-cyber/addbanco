@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidade & Convivência | Apesar de VOCÊ</title>
+    <meta name="description" content="Rede social de apoio, acolhimento e conscientização para mulheres cis, mulheres trans e travestis. Conecte-se e compartilhe com segurança.">
+    <link rel="icon" type="image/png" href="/imagens/logosite.png">
+
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            purple: '#341133',
+                            purpleLight: '#4a1949',
+                            carmine: '#E6005C',
+                            carmineDark: '#c0004d',
+                            roseSoft: '#FAF7F9',
+                            roseBorder: '#f0e6ec',
+                            offWhite: '#fcf8f8',
+                            dark: '#33303A',
+                            muted: '#666070'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+   SISTEMA DE RESPONSIVIDADE E ADAPTAÇÃO DE TELA — COMUNIDADE
+   ========================================================================== */
+
+/* 1. Reset de segurança para evitar rolagem horizontal indesejada */
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* 2. Suporte a telas muito pequenas (Smartphones de 320px a 480px) */
+@media (max-width: 480px) {
+    .container, main {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    /* Redução de fontes e paddings do cabeçalho */
+    #mainTitleView {
+        font-size: 1.1rem !important;
+    }
+    
+    #badgeTipoView {
+        font-size: 0.65rem !important;
+        padding: 0.2rem 0.5rem !important;
+    }
+
+    /* Ajuste no Avatar e Banner do Perfil */
+    #perfilAvatarImg {
+        width: 4.5rem !important;
+        height: 4.5rem !important;
+    }
+    
+    .h-36 {
+        height: 7rem !important;
+    }
+
+    /* Ajuste nos botões de ação do perfil */
+    #perfilActionButtons button {
+        padding: 0.4rem 0.8rem !important;
+        font-size: 0.7rem !important;
+    }
+
+    /* Ajuste no compositor de mensagens */
+    #inputPostText {
+        font-size: 0.8rem !important;
+        padding: 0.5rem !important;
+    }
+}
+
+/* 3. Adaptação para Tablets e Smartphones em modo Paisagem (481px a 767px) */
+@media (max-width: 767px) {
+    /* Garante margem inferior para o conteúdo não ficar escondido pela barra mobile */
+    main {
+        padding-bottom: 4.5rem !important;
+        min-height: calc(100vh - 4rem) !important;
+    }
+
+    /* Ajuste dos modais para caberem em telas com teclado virtual aberto */
+    #modalEdicaoPerfil .bg-white,
+    #modalResposta .bg-white,
+    #modalDenuncia .bg-white {
+        max-height: 85vh !important;
+        width: 95% !important;
+        margin: 0 auto;
+        padding: 1.25rem !important;
+    }
+
+    /* Ajuste das abas do feed e do perfil */
+    .flex.border-b button {
+        font-size: 0.75rem !important;
+        padding-top: 0.65rem !important;
+        padding-bottom: 0.65rem !important;
+    }
+}
+
+/* 4. Comportamento Intermediário (Tablets de 768px a 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    /* Exibe barra lateral em formato compacto (somente ícones) */
+    aside.hidden.md\:flex {
+        display: flex !important;
+        grid-column: span 2 / span 2 !important;
+        align-items: center !important;
+    }
+
+    aside nav button span,
+    aside .truncate span,
+    aside button span {
+        display: none !important;
+    }
+
+    aside nav button {
+        justify-content: center !important;
+        padding: 0.75rem !important;
+    }
+
+    main {
+        grid-column: span 10 / span 10 !important;
+    }
+
+    /* Esconde a barra inferior mobile caso esteja visível */
+    nav[aria-label="Navegação Mobile"] {
+        display: none !important;
+    }
+}
+
+/* 5. Monitores Grandes e Ultrawide (1440px em diante) */
+@media (min-width: 1440px) {
+    .max-w-7xl {
+        max-width: 85rem !important;
+    }
+
+    main {
+        min-height: 100vh !important;
+    }
+
+    #inputPostText {
+        font-size: 0.95rem !important;
+    }
+}
+
+/* 6. Correção de foco e acessibilidade visual em telas sensíveis ao toque */
+@media (pointer: coarse) {
+    button, a, input, select, textarea {
+        min-height: 44px; /* Tamanho mínimo recomendado pela W3C para toque */
+    }
+}
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #FAF7F9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e0d0dc;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #E6005C;
+        }
+        :focus-visible {
+            outline: 3px solid #E6005C !important;
+            outline-offset: 2px !important;
+        }
+    </style>
+</head>
+<body class="bg-brand-roseSoft text-brand-dark font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-brand-carmine selection:text-white">
+
+    <!-- FAIXA SUPERIOR DE SEGURANÇA E NAVEGAÇÃO DE RETORNO -->
+<div role="region" aria-label="Segurança e Atalhos" class="fixed top-0 left-0 right-0 z-50 bg-brand-purple text-white text-xs py-2 px-3 sm:px-4 shadow-md flex justify-between items-center border-b border-brand-carmine/30">
+    <!-- Esquerda: Link para retornar ao site principal -->
+    <a href="index.html" class="flex items-center gap-1.5 font-bold text-white hover:text-brand-carmine transition-colors bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full text-[11px] sm:text-xs">
+        <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i>
+        <span>Voltar ao Site</span>
+    </a>
+
+    <!-- Direita: Saída Rápida de Emergência -->
+    <button onclick="saidaRapida()" title="Encerrar navegação e ir para o Google" class="bg-brand-carmine hover:bg-brand-carmineDark text-white font-bold px-3 py-1 rounded-full text-[11px] sm:text-xs transition-all flex items-center gap-1.5 shadow-sm">
+        <i class="fa-solid fa-bolt" aria-hidden="true"></i> 
+        <span>SAÍDA RÁPIDA</span>
+    </button>
+</div>
+
+    <!-- MAIN CONTAINER EM 3 COLUNAS (DESKTOP) & COMPACTO (MOBILE) -->
+    <div class="pt-12 pb-16 md:pb-0 max-w-7xl mx-auto w-full px-0 sm:px-4 lg:px-8 flex-grow grid grid-cols-1 md:grid-cols-12 gap-0 md:gap-6">
+
+        <!-- =================================================================== -->
+        <!-- COLUNA ESQUERDA — NAVEGAÇÃO E AUTENTICAÇÃO (MD: 3 COLS) -->
+        <!-- =================================================================== -->
+        <aside class="hidden md:flex md:col-span-3 flex-col justify-between sticky top-12 h-[calc(100vh-3rem)] py-6 border-r border-brand-roseBorder pr-4">
+            <div class="space-y-6">
+                <!-- LOGO INSTITUCIONAL -->
+                <a href="index.html" class="flex items-center gap-3 px-3 text-brand-purple text-decoration-none">
+                    <img src="/imagens/logosite.png" alt="Logotipo Apesar de VOCÊ" class="h-10 w-auto" onerror="this.style.display='none'">
+                    <div>
+                        <span class="font-serif text-lg font-bold block leading-none">Apesar de VOCÊ</span>
+                        <span class="text-[10px] text-brand-carmine font-semibold tracking-wider block uppercase pt-0.5">Comunidade</span>
+                    </div>
+                </a>
+
+                <!-- MENU PRINCIPAL -->
+                <nav aria-label="Navegação da Comunidade" class="space-y-1">
+                    <button onclick="routerNav('feed')" id="nav-feed" class="w-full flex items-center gap-4 px-4 py-3 rounded-2xl font-semibold text-sm transition-all bg-brand-purple text-white shadow-sm">
+                        <i class="fa-solid fa-house text-lg w-6"></i> <span>Início</span>
+                    </button>
+                    <button onclick="routerNav('explorar')" id="nav-explorar" class="w-full flex items-center gap-4 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-brand-dark hover:bg-white hover:text-brand-carmine">
+                        <i class="fa-solid fa-compass text-lg w-6"></i> <span>Explorar</span>
+                    </button>
+                    <button onclick="routerNav('notificacoes')" id="nav-notificacoes" class="w-full flex items-center gap-4 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-brand-dark hover:bg-white hover:text-brand-carmine relative">
+                        <i class="fa-solid fa-bell text-lg w-6"></i> <span>Notificações</span>
+                        <span id="badgeNotificacoes" class="hidden absolute right-4 bg-brand-carmine text-white text-[10px] font-bold px-2 py-0.5 rounded-full">3</span>
+                    </button>
+                    <button onclick="routerNav('salvos')" id="nav-salvos" class="w-full flex items-center gap-4 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-brand-dark hover:bg-white hover:text-brand-carmine">
+                        <i class="fa-solid fa-bookmark text-lg w-6"></i> <span>Salvos Privados</span>
+                    </button>
+                    <button onclick="abrirPerfilProprio()" id="nav-perfil" class="w-full flex items-center gap-4 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-brand-dark hover:bg-white hover:text-brand-carmine">
+                        <i class="fa-solid fa-user text-lg w-6"></i> <span>Meu Perfil</span>
+                    </button>
+                    <button onclick="routerNav('configuracoes')" id="nav-configuracoes" class="w-full flex items-center gap-4 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-brand-dark hover:bg-white hover:text-brand-carmine">
+                        <i class="fa-solid fa-gear text-lg w-6"></i> <span>Configurações</span>
+                    </button>
+                    <button onclick="abrirModalModeracao()" id="nav-moderacao" class="hidden w-full flex items-center gap-4 px-4 py-3 rounded-2xl font-semibold text-xs text-amber-700 bg-amber-50 hover:bg-amber-100 font-bold border border-amber-200">
+                        <i class="fa-solid fa-shield-halved text-base w-6"></i> <span>Painel Moderação</span>
+                    </button>
+                </nav>
+
+                <!-- BOTÃO NOVA PUBLICAÇÃO -->
+                <button onclick="focarCompositor()" class="w-full py-3.5 px-4 rounded-full bg-brand-carmine hover:bg-brand-carmineDark text-white font-bold text-sm shadow-md transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-feather-pointed"></i> <span>Nova Publicação</span>
+                </button>
+            </div>
+
+            <!-- CARD DO USUÁRIO AUTENTICADO DA SESSÃO -->
+            <div class="pt-4 border-t border-brand-roseBorder flex items-center justify-between">
+                <div onclick="abrirPerfilProprio()" class="flex items-center gap-3 cursor-pointer group flex-1 min-w-0">
+                    <img id="sidebarUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Foto de perfil" class="w-10 h-10 rounded-full object-cover border border-brand-roseBorder group-hover:border-brand-carmine">
+                    <div class="truncate">
+                        <strong id="sidebarUserName" class="block text-xs font-bold text-brand-purple truncate group-hover:text-brand-carmine">Maria Clara</strong>
+                        <span id="sidebarUserHandle" class="block text-[11px] text-brand-muted truncate">@mariaclara</span>
+                    </div>
+                </div>
+                <button onclick="logoutSimulado()" title="Alternar/Sair da Conta" class="text-brand-muted hover:text-brand-carmine p-2 text-xs">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- =================================================================== -->
+        <!-- COLUNA CENTRAL — FEED PRINCIPAL & PERFIS (MD: 6 COLS) -->
+        <!-- =================================================================== -->
+        <main class="col-span-1 md:col-span-6 border-x-0 md:border-x border-brand-roseBorder bg-white min-h-[calc(100vh-3rem)] flex flex-col">
+            
+            <!-- HEADER DA VIEW CENTRAL -->
+            <header class="sticky top-11 z-30 bg-white/95 backdrop-blur border-b border-brand-roseBorder px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <button id="btnVoltarFeed" onclick="routerNav('feed')" class="hidden text-brand-purple hover:text-brand-carmine font-bold text-sm">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <h1 id="mainTitleView" class="font-serif text-xl font-bold text-brand-purple">Comunidade</h1>
+                </div>
+                <span id="badgeTipoView" class="text-[11px] uppercase tracking-wider font-bold text-brand-carmine bg-brand-carmine/10 px-2.5 py-1 rounded-full">Rede Acolhedora</span>
+            </header>
+
+            <!-- VIEW 1: FEED PRINCIPAL -->
+            <div id="view-feed" class="view-container flex-grow flex flex-col">
+                
+                <!-- ABAS DO FEED -->
+                <div class="flex border-b border-brand-roseBorder bg-brand-roseSoft/50 text-xs font-bold text-brand-muted">
+                    <button onclick="trocarAbaFeed('para-voce')" id="tab-para-voce" class="flex-1 py-3 text-center border-b-2 border-brand-carmine text-brand-carmine">Para você</button>
+                    <button onclick="trocarAbaFeed('seguindo')" id="tab-seguindo" class="flex-1 py-3 text-center border-b-2 border-transparent hover:text-brand-purple">Seguindo</button>
+                    <button onclick="trocarAbaFeed('recentes')" id="tab-recentes" class="flex-1 py-3 text-center border-b-2 border-transparent hover:text-brand-purple">Mais recentes</button>
+                </div>
+
+                <!-- COMPOSITOR DE PUBLICAÇÃO -->
+                <section class="p-4 border-b border-brand-roseBorder bg-white space-y-3">
+                    <div class="flex items-start gap-3">
+                        <img id="composerUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Sua foto de perfil" class="w-10 h-10 rounded-full object-cover border border-brand-roseBorder">
+                        <div class="flex-1">
+                            <textarea id="inputPostText" rows="3" onkeyup="atualizarContadorChar()" placeholder="O que você gostaria de compartilhar ou refletir hoje com a comunidade?" class="w-full text-xs sm:text-sm p-3 bg-brand-roseSoft/60 border border-brand-roseBorder rounded-2xl focus:outline-none focus:border-brand-carmine resize-none leading-relaxed"></textarea>
+                            
+                            <!-- PRÉ-VISUALIZAÇÃO DE IMAGEM DA PUBLICAÇÃO -->
+                            <div id="previewPostImageWrapper" class="hidden relative mt-2 rounded-2xl overflow-hidden max-h-60 border border-brand-roseBorder">
+                                <img id="imgPreviewPost" src="" alt="Pré-visualização do anexo" class="w-full h-full object-cover">
+                                <button onclick="removerImagemComposer()" class="absolute top-2 right-2 bg-brand-purple/80 hover:bg-brand-carmine text-white text-xs w-7 h-7 rounded-full flex items-center justify-center">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-2 border-t border-gray-100 text-xs">
+                        <div class="flex items-center gap-3 text-brand-purple">
+                            <label class="cursor-pointer hover:text-brand-carmine flex items-center gap-1 font-semibold" title="Anexar Imagem">
+                                <i class="fa-solid fa-image text-base"></i> <span class="hidden sm:inline">Imagem</span>
+                                <input type="file" id="inputPostImage" accept="image/*" onchange="carregarPreviewImagemComposer(this)" class="hidden">
+                            </label>
+                            <button onclick="inserirHashtagExemplo('#Autocuidado')" class="hover:text-brand-carmine font-semibold hidden sm:inline">#Hashtag</button>
+                            <span id="charCounter" class="text-[11px] text-brand-muted">0/500</span>
+                        </div>
+                        <button onclick="publicarPost()" class="py-2 px-6 rounded-full bg-brand-carmine hover:bg-brand-carmineDark text-white font-bold transition-all shadow-sm">
+                            Publicar
+                        </button>
+                    </div>
+                </section>
+
+                <!-- CONTAINER DO FEED DE POSTS -->
+                <div id="feedPostsContainer" class="divide-y divide-brand-roseBorder flex-grow">
+                    <!-- Posts injetados dinamicamente via JS -->
+                </div>
+            </div>
+
+            <!-- VIEW 2: PERFIL INDIVIDUAL DO USUÁRIO -->
+            <div id="view-perfil" class="view-container hidden flex-grow flex flex-col">
+                <!-- BANNER DE CAPA -->
+                <div class="h-36 sm:h-48 bg-gradient-to-r from-brand-purple via-brand-purpleLight to-brand-carmine relative">
+                    <img id="perfilBannerImg" src="" alt="" class="w-full h-full object-cover hidden">
+                </div>
+
+                <!-- INFORMAÇÕES DO PERFIL E AVATAR -->
+                <div class="px-4 pb-4 border-b border-brand-roseBorder space-y-4 relative bg-white">
+                    <div class="flex justify-between items-end -mt-12 sm:-mt-16 mb-2">
+                        <img id="perfilAvatarImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Foto do perfil" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-white shadow-md bg-white">
+                        <div id="perfilActionButtons" class="flex gap-2">
+                            <!-- Botões de Ação (Editar ou Seguir/Bloquear) alterados via JS -->
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 id="perfilNomeDisplay" class="font-serif text-xl sm:text-2xl font-bold text-brand-purple">Maria Clara</h2>
+                            <span id="perfilBadgeVerificado" class="hidden text-brand-carmine text-xs" title="Perfil Oficial Verificado"><i class="fa-solid fa-circle-check"></i></span>
+                        </div>
+                        <span id="perfilHandleDisplay" class="text-xs text-brand-muted font-medium block">@mariaclara</span>
+                    </div>
+
+                    <p id="perfilBioDisplay" class="text-xs sm:text-sm text-brand-dark leading-relaxed">
+                        Advogada popular, defensora dos direitos humanos e leitora assídua. Aqui compartilhando informação e acolhimento.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4 text-xs text-brand-muted">
+                        <span><i class="fa-solid fa-calendar-days mr-1 text-brand-carmine"></i> Entrou em <span id="perfilDataEntrada">Janeiro de 2026</span></span>
+                        <a id="perfilWebsiteDisplay" href="#" target="_blank" rel="noopener noreferrer" class="text-brand-carmine hover:underline hidden"><i class="fa-solid fa-link mr-1"></i> <span>website.org</span></a>
+                    </div>
+
+                    <div class="flex items-center gap-6 text-xs font-semibold pt-1">
+                        <button onclick="verListaSeguindo()" class="hover:text-brand-carmine"><strong id="perfilSeguindoCount" class="text-brand-purple font-bold">12</strong> <span class="text-brand-muted font-normal">Seguindo</span></button>
+                        <button onclick="verListaSeguidores()" class="hover:text-brand-carmine"><strong id="perfilSeguidoresCount" class="text-brand-purple font-bold">148</strong> <span class="text-brand-muted font-normal">Seguidores</span></button>
+                    </div>
+                </div>
+
+                <!-- ABAS DO PERFIL -->
+                <div class="flex border-b border-brand-roseBorder bg-brand-roseSoft/30 text-xs font-bold text-brand-muted">
+                    <button onclick="trocarAbaPerfil('posts')" id="tab-perfil-posts" class="flex-1 py-3 text-center border-b-2 border-brand-carmine text-brand-carmine">Publicações</button>
+                    <button onclick="trocarAbaPerfil('respostas')" id="tab-perfil-respostas" class="flex-1 py-3 text-center border-b-2 border-transparent hover:text-brand-purple">Respostas</button>
+                    <button onclick="trocarAbaPerfil('midia')" id="tab-perfil-midia" class="flex-1 py-3 text-center border-b-2 border-transparent hover:text-brand-purple">Mídia</button>
+                    <button onclick="trocarAbaPerfil('sobre')" id="tab-perfil-sobre" class="flex-1 py-3 text-center border-b-2 border-transparent hover:text-brand-purple">Sobre</button>
+                </div>
+
+                <!-- CONTAINER DE POSTS DO PERFIL -->
+                <div id="perfilPostsContainer" class="divide-y divide-brand-roseBorder flex-grow">
+                    <!-- Conteúdo dinâmico das abas do perfil -->
+                </div>
+            </div>
+
+            <!-- VIEW 3: EXPLORAR & DESCOBERTA -->
+            <div id="view-explorar" class="view-container hidden p-4 space-y-6">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-brand-muted text-xs"></i>
+                    <input type="text" id="inputBuscaGeral" onkeyup="executarBusca(this.value)" placeholder="Buscar pessoas, hashtags ou conteúdos educativos..." class="w-full pl-10 pr-4 py-3 bg-brand-roseSoft border border-brand-roseBorder rounded-full text-xs focus:outline-none focus:border-brand-carmine">
+                </div>
+
+                <div class="space-y-3">
+                    <h3 class="font-serif text-base font-bold text-brand-purple">Categorias em Destaque</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filtrarPorHashtag('#DireitosDasMulheres')" class="px-3 py-1.5 bg-brand-roseSoft hover:bg-brand-carmine hover:text-white rounded-full text-xs font-medium border border-brand-roseBorder transition-colors">#DireitosDasMulheres</button>
+                        <button onclick="filtrarPorHashtag('#Autocuidado')" class="px-3 py-1.5 bg-brand-roseSoft hover:bg-brand-carmine hover:text-white rounded-full text-xs font-medium border border-brand-roseBorder transition-colors">#Autocuidado</button>
+                        <button onclick="filtrarPorHashtag('#LeiMariaDaPenha')" class="px-3 py-1.5 bg-brand-roseSoft hover:bg-brand-carmine hover:text-white rounded-full text-xs font-medium border border-brand-roseBorder transition-colors">#LeiMariaDaPenha</button>
+                        <button onclick="filtrarPorHashtag('#RedeDeApoio')" class="px-3 py-1.5 bg-brand-roseSoft hover:bg-brand-carmine hover:text-white rounded-full text-xs font-medium border border-brand-roseBorder transition-colors">#RedeDeApoio</button>
+                    </div>
+                </div>
+
+                <div id="resultadosBuscaContainer" class="space-y-4">
+                    <!-- Resultados da busca -->
+                </div>
+            </div>
+
+            <!-- VIEW 4: CENTRAL DE NOTIFICAÇÕES -->
+            <div id="view-notificacoes" class="view-container hidden divide-y divide-brand-roseBorder">
+                <div class="p-4 bg-brand-roseSoft/40 flex justify-between items-center text-xs">
+                    <span class="font-bold text-brand-purple">Suas Notificações</span>
+                    <button onclick="marcarTodasNotificacoesLidas()" class="text-brand-carmine font-semibold hover:underline">Marcar todas como lidas</button>
+                </div>
+                <div id="notificacoesListContainer">
+                    <!-- Notificações simuladas -->
+                </div>
+            </div>
+
+            <!-- VIEW 5: SALVOS PRIVADOS -->
+            <div id="view-salvos" class="view-container hidden">
+                <div class="p-4 bg-brand-roseSoft/40 border-b border-brand-roseBorder">
+                    <h3 class="font-serif text-base font-bold text-brand-purple">Publicações Salvas</h3>
+                    <p class="text-xs text-brand-muted">Sua coleção privada de publicações guardadas para consulta rápida.</p>
+                </div>
+                <div id="salvosPostsContainer" class="divide-y divide-brand-roseBorder">
+                    <!-- Posts salvos -->
+                </div>
+            </div>
+
+            <!-- VIEW 6: CONFIGURAÇÕES DA CONTA -->
+            <div id="view-configuracoes" class="view-container hidden p-6 space-y-6">
+                <h3 class="font-serif text-xl font-bold text-brand-purple border-b border-brand-roseBorder pb-3">Configurações de Privacidade & Conta</h3>
+                
+                <div class="space-y-4 text-xs">
+                    <div class="flex justify-between items-center p-4 bg-brand-roseSoft rounded-2xl border border-brand-roseBorder">
+                        <div>
+                            <strong class="block text-brand-purple font-bold">Perfil Privado</strong>
+                            <span class="text-brand-muted">Somente pessoas aprovadas por você poderão ver suas publicações.</span>
+                        </div>
+                        <input type="checkbox" id="checkPerfilPrivado" onchange="salvarConfiguracaoPrivacidade()" class="w-4 h-4 accent-brand-carmine cursor-pointer">
+                    </div>
+
+                    <div class="flex justify-between items-center p-4 bg-brand-roseSoft rounded-2xl border border-brand-roseBorder">
+                        <div>
+                            <strong class="block text-brand-purple font-bold">Permitir Respostas de Qualquer Pessoa</strong>
+                            <span class="text-brand-muted">Permite comentários de usuárias que você não segue.</span>
+                        </div>
+                        <input type="checkbox" id="checkPermitirRespostas" checked onchange="salvarConfiguracaoPrivacidade()" class="w-4 h-4 accent-brand-carmine cursor-pointer">
+                    </div>
+
+                    <div class="pt-4 border-t border-brand-roseBorder space-y-3">
+                        <button onclick="abrirModalEdicaoPerfil()" class="w-full py-3 px-4 rounded-xl bg-brand-purple text-white font-bold text-xs">Editar Dados do Perfil</button>
+                        <button onclick="confirmarExclusaoConta()" class="w-full py-3 px-4 rounded-xl bg-red-50 text-red-600 border border-red-200 font-bold text-xs hover:bg-red-100">Solicitar Exclusão Definitiva da Conta</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- =================================================================== -->
+        <!-- COLUNA DIREITA — DESCOBERTA, REGRAS E APOIO (MD: 3 COLS) -->
+        <!-- =================================================================== -->
+        <aside class="hidden md:block md:col-span-3 sticky top-12 h-[calc(100vh-3rem)] py-6 pl-2 space-y-6 overflow-y-auto custom-scrollbar">
+            
+            <!-- BUSCA RÁPIDA -->
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-brand-muted text-xs"></i>
+                <input type="text" onfocus="routerNav('explorar')" placeholder="Buscar na comunidade..." class="w-full pl-9 pr-3 py-2.5 bg-white border border-brand-roseBorder rounded-full text-xs focus:outline-none focus:border-brand-carmine">
+            </div>
+
+            <!-- PERFIS SUGERIDOS -->
+            <div class="bg-white p-4 rounded-2xl border border-brand-roseBorder space-y-3">
+                <h3 class="font-serif text-sm font-bold text-brand-purple flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus text-brand-carmine"></i> Perfis Recomendados
+                </h3>
+                <div id="perfisSugeridosContainer" class="space-y-3">
+                    <!-- Injetado dinamicamente via JS -->
+                </div>
+            </div>
+
+            <!-- CARD CANAIS DE APOIO E EMERGÊNCIA -->
+            <div class="bg-gradient-to-br from-brand-purple to-brand-purpleLight text-white p-4 rounded-2xl space-y-3 shadow-md">
+                <h3 class="font-serif text-sm font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-headset text-brand-carmine"></i> Precisando de Apoio Oficial?
+                </h3>
+                <p class="text-[11px] text-white/80 leading-relaxed">
+                    A comunidade é um espaço de convivência. Se você precisa de orientação jurídica ou proteção imediata:
+                </p>
+                <div class="space-y-2 pt-1">
+                    <a href="denuncie.html" class="w-full py-2 px-3 rounded-full bg-brand-carmine hover:bg-brand-carmineDark text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors">
+                        <i class="fa-solid fa-shield-halved"></i> Registre um Relato Seguro
+                    </a>
+                    <a href="tel:180" class="w-full py-2 px-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-phone"></i> Ligue 180 (Central)
+                    </a>
+                </div>
+            </div>
+
+            <!-- DIREITOS E CONVIVÊNCIA -->
+            <div class="bg-white p-4 rounded-2xl border border-brand-roseBorder space-y-2 text-xs">
+                <h4 class="font-bold text-brand-purple">Regras de Convivência</h4>
+                <p class="text-[11px] text-brand-muted leading-relaxed">
+                    Respeito mútuo, acolhimento sem julgamentos e sigilo sobre relatos sensíveis de terceiros.
+                </p>
+                <div class="pt-2 text-[10px] text-brand-muted border-t border-brand-roseBorder flex flex-wrap gap-2">
+                    <a href="direitos.html" class="hover:underline">Seus Direitos</a> • 
+                    <a href="contatos.html" class="hover:underline">Rede de Apoio</a> • 
+                    <span>&copy; 2026 Apesar de VOCÊ</span>
+                </div>
+            </div>
+
+        </aside>
+
+    </div>
+
+    <!-- NAVEGAÇÃO INFERIOR PARA DISPOSITIVOS MÓVEIS -->
+    <nav aria-label="Navegação Mobile" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-brand-roseBorder flex justify-around py-2.5 px-2 text-brand-dark">
+        <button onclick="routerNav('feed')" class="flex flex-col items-center gap-0.5 text-[10px] font-semibold text-brand-carmine">
+            <i class="fa-solid fa-house text-base"></i> <span>Início</span>
+        </button>
+        <button onclick="routerNav('explorar')" class="flex flex-col items-center gap-0.5 text-[10px] font-semibold">
+            <i class="fa-solid fa-compass text-base"></i> <span>Explorar</span>
+        </button>
+        <button onclick="focarCompositor()" class="flex flex-col items-center gap-0.5 text-[10px] font-semibold text-brand-carmine">
+            <i class="fa-solid fa-circle-plus text-xl"></i> <span>Publicar</span>
+        </button>
+        <button onclick="routerNav('notificacoes')" class="flex flex-col items-center gap-0.5 text-[10px] font-semibold relative">
+            <i class="fa-solid fa-bell text-base"></i> <span>Avisos</span>
+        </button>
+        <button onclick="abrirPerfilProprio()" class="flex flex-col items-center gap-0.5 text-[10px] font-semibold">
+            <i class="fa-solid fa-user text-base"></i> <span>Perfil</span>
+        </button>
+    </nav>
+
+    <!-- =================================================================== -->
+    <!-- MODAIS DE INTERAÇÃO & EDIÇÃO DA COMUNIDADE -->
+    <!-- =================================================================== -->
+
+    <!-- MODAL DE EDIÇÃO DE PERFIL -->
+    <div id="modalEdicaoPerfil" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl border border-brand-roseBorder max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-brand-roseBorder pb-3">
+                <h3 class="font-serif text-lg font-bold text-brand-purple">Editar Perfil</h3>
+                <button onclick="fecharModalEdicaoPerfil()" class="text-brand-muted hover:text-brand-carmine text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form id="formEdicaoPerfil" onsubmit="salvarPerfilSubmit(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-brand-purple uppercase mb-1">Nome de Exibição</label>
+                    <input type="text" id="editNome" maxlength="50" required class="w-full p-3 bg-brand-roseSoft border border-brand-roseBorder rounded-xl focus:outline-none focus:border-brand-carmine">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-brand-purple uppercase mb-1">@Nome de Usuário (Único)</label>
+                    <input type="text" id="editHandle" maxlength="30" required pattern="^[a-zA-Z0-9_]+$" title="Apenas letras, números e underline" class="w-full p-3 bg-brand-roseSoft border border-brand-roseBorder rounded-xl focus:outline-none focus:border-brand-carmine">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-brand-purple uppercase mb-1">Biografia / Apresentação</label>
+                    <textarea id="editBio" rows="3" maxlength="160" class="w-full p-3 bg-brand-roseSoft border border-brand-roseBorder rounded-xl focus:outline-none focus:border-brand-carmine"></textarea>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-brand-purple uppercase mb-1">URL da Foto de Perfil (ou Upload)</label>
+                    <input type="text" id="editAvatarUrl" placeholder="https://exemplo.com/foto.jpg" class="w-full p-3 bg-brand-roseSoft border border-brand-roseBorder rounded-xl focus:outline-none focus:border-brand-carmine">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-brand-purple uppercase mb-1">URL do Banner de Capa</label>
+                    <input type="text" id="editBannerUrl" placeholder="https://exemplo.com/capa.jpg" class="w-full p-3 bg-brand-roseSoft border border-brand-roseBorder rounded-xl focus:outline-none focus:border-brand-carmine">
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-brand-roseBorder">
+                    <button type="button" onclick="fecharModalEdicaoPerfil()" class="px-5 py-2.5 rounded-full border border-gray-300 font-bold">Cancelar</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-full bg-brand-carmine text-white font-bold">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE RESPOSTA / COMENTÁRIO -->
+    <div id="modalResposta" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl border border-brand-roseBorder">
+            <div class="flex justify-between items-center border-b border-brand-roseBorder pb-3">
+                <h3 class="font-serif text-base font-bold text-brand-purple">Responder Publicação</h3>
+                <button onclick="fecharModalResposta()" class="text-brand-muted hover:text-brand-carmine text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div id="modalTargetPostPreview" class="p-3 bg-brand-roseSoft rounded-xl text-xs space-y-1">
+                <!-- Preview do post respondido -->
+            </div>
+
+            <textarea id="inputRespostaText" rows="3" placeholder="Escreva sua resposta acolhedora..." class="w-full p-3 bg-brand-roseSoft border border-brand-roseBorder rounded-2xl text-xs focus:outline-none focus:border-brand-carmine"></textarea>
+
+            <div class="flex justify-end gap-3 pt-2">
+                <button onclick="fecharModalResposta()" class="px-4 py-2 rounded-full border border-gray-300 text-xs font-bold">Cancelar</button>
+                <button onclick="enviarRespostaSubmit()" class="px-5 py-2 rounded-full bg-brand-carmine text-white text-xs font-bold">Publicar Resposta</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE DENÚNCIA DE CONTEÚDO -->
+    <div id="modalDenuncia" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-brand-roseBorder">
+            <div class="flex justify-between items-center border-b border-brand-roseBorder pb-3">
+                <h3 class="font-serif text-base font-bold text-brand-purple text-red-600"><i class="fa-solid fa-shield-cat mr-1"></i> Denunciar Conteúdo</h3>
+                <button onclick="fecharModalDenuncia()" class="text-brand-muted hover:text-brand-carmine text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <p class="text-xs text-brand-muted">Sua denúncia é totalmente anônima. Selecione o motivo principal:</p>
+
+            <select id="selectMotivoDenuncia" class="w-full p-3 bg-brand-roseSoft border border-brand-roseBorder rounded-xl text-xs focus:outline-none focus:border-brand-carmine">
+                <option value="assedio">Assédio ou Ataque Pessoal</option>
+                <option value="exposicao_dados">Exposição de Dados Privados (Doxxing)</option>
+                <option value="discurso_odio">Discurso de Ódio / Transfobia / Misoginia</option>
+                <option value="spam">Spam ou Conteúdo Enganoso</option>
+                <option value="abrigo_protegido">Revelação de Endereço Protegido</option>
+            </select>
+
+            <textarea id="inputDetalhesDenuncia" rows="2" placeholder="Detalhes opcionais..." class="w-full p-3 bg-brand-roseSoft border border-brand-roseBorder rounded-xl text-xs focus:outline-none focus:border-brand-carmine"></textarea>
+
+            <div class="flex justify-end gap-3 pt-2">
+                <button onclick="fecharModalDenuncia()" class="px-4 py-2 rounded-full border border-gray-300 text-xs font-bold">Cancelar</button>
+                <button onclick="enviarDenunciaSubmit()" class="px-5 py-2 rounded-full bg-red-600 text-white text-xs font-bold">Enviar Denúncia</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- LOGICA JAVASCRIPT & MOTOR DE DADOS DA COMUNIDADE -->
+    <!-- =================================================================== -->
+    <script>
+        /* ==========================================================================
+           STORE & ESTADO DA APLICAÇÃO (CONECTÁVEL AO BANCO DE DADOS REAL)
+           ========================================================================== */
+        const STORE = {
+            currentUser: {
+                id: "user-101",
+                name: "Maria Clara",
+                handle: "@mariaclara",
+                avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+                banner: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800",
+                bio: "Advogada popular, defensora dos direitos humanos e leitora assídua. Aqui compartilhando informação e acolhimento.",
+                joinedDate: "Janeiro de 2026",
+                website: "https://apesaurdevoce.org",
+                isVerified: false,
+                isAdmin: true, // Flag administrativa simulada
+                following: ["user-102", "user-103"],
+                followers: ["user-102", "user-104", "user-105"],
+                savedPosts: ["post-2"],
+                blockedUsers: []
+            },
+            users: [
+                {
+                    id: "user-102",
+                    name: "Projeto Apesar de VOCÊ",
+                    handle: "@apesardevoce_oficial",
+                    avatar: "/imagens/logosite.png",
+                    banner: "",
+                    bio: "Conta oficial do projeto Apesar de VOCÊ. Informação, direitos, conscientização e apoio para mulheres.",
+                    joinedDate: "Janeiro de 2026",
+                    isVerified: true,
+                    followers: ["user-101", "user-103"]
+                },
+                {
+                    id: "user-103",
+                    name: "Dra. Beatriz Santos",
+                    handle: "@beatriz_direitos",
+                    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150",
+                    banner: "",
+                    bio: "Defensora pública especializada na Lei Maria da Penha e proteção aos direitos das mulheres trans.",
+                    joinedDate: "Fevereiro de 2026",
+                    isVerified: true,
+                    followers: ["user-101"]
+                }
+            ],
+            posts: [
+                {
+                    id: "post-1",
+                    authorId: "user-102",
+                    authorName: "Projeto Apesar de VOCÊ",
+                    authorHandle: "@apesardevoce_oficial",
+                    authorAvatar: "/imagens/logosite.png",
+                    isVerified: true,
+                    content: "Lembre-se: nem toda violência começa com uma agressão física. O isolamento, o controle financeiro e o monitoramento do celular são sinais de alerta. Conheça seus direitos no nosso guia completo! #DireitosDasMulheres #Conscientizacao",
+                    image: "",
+                    createdAt: "Há 2 horas",
+                    likes: ["user-101", "user-103"],
+                    replies: [
+                        {
+                            id: "rep-1",
+                            authorName: "Ana Paula",
+                            authorHandle: "@anapaula",
+                            content: "Excelente lembrete! O controle psicológico é extremamente sutil.",
+                            createdAt: "Há 1 hora"
+                        }
+                    ],
+                    category: "educativo"
+                },
+                {
+                    id: "post-2",
+                    authorId: "user-103",
+                    authorName: "Dra. Beatriz Santos",
+                    authorHandle: "@beatriz_direitos",
+                    authorAvatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150",
+                    isVerified: true,
+                    content: "Importante reafirmar: a Lei Maria da Penha aplica-se integralmente à proteção de mulheres cis, mulheres trans e travestis, conforme jurisprudência pacificada do STJ. #LeiMariaDaPenha #Direitos",
+                    image: "",
+                    createdAt: "Há 5 horas",
+                    likes: ["user-101"],
+                    replies: [],
+                    category: "direitos"
+                }
+            ],
+            notificacoes: [
+                { id: "not-1", texto: "Dra. Beatriz Santos curtiu sua publicação.", lida: false, data: "Há 10 min" },
+                { id: "not-2", texto: "Ana Paula começou a seguir você.", lida: false, data: "Há 1 hora" }
+            ],
+            denuncias: []
+        };
+
+        let currentView = 'feed';
+        let currentFeedTab = 'para-voce';
+        let currentPerfilTab = 'posts';
+        let targetPerfilId = null; // null = meu próprio perfil
+        let replyTargetPostId = null;
+
+        /* ==========================================================================
+           ROTEAMENTO E NAVEGAÇÃO INTERNA (SPA)
+           ========================================================================== */
+        document.addEventListener('DOMContentLoaded', () => {
+            syncUserProfileView();
+            renderFeed();
+            renderPerfisSugeridos();
+
+            // Tecla ESC para Saída Rápida
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') saidaRapida();
+            });
+        });
+
+        function routerNav(view, param = null) {
+            currentView = view;
+            document.querySelectorAll('.view-container').forEach(el => el.classList.add('hidden'));
+
+            const targetView = document.getElementById(`view-${view}`);
+            if (targetView) targetView.classList.remove('hidden');
+
+            // Atualizar título do header
+            const titleMap = {
+                'feed': 'Comunidade',
+                'perfil': 'Perfil',
+                'explorar': 'Explorar & Descoberta',
+                'notificacoes': 'Notificações',
+                'salvos': 'Salvos Privados',
+                'configuracoes': 'Configurações'
+            };
+            document.getElementById('mainTitleView').innerText = titleMap[view] || 'Comunidade';
+            document.getElementById('btnVoltarFeed').classList.toggle('hidden', view === 'feed');
+
+            // Atualizar classes ativas da sidebar
+            document.querySelectorAll('nav[aria-label="Navegação da Comunidade"] button').forEach(btn => {
+                btn.className = "w-full flex items-center gap-4 px-4 py-3 rounded-2xl font-semibold text-sm transition-all text-brand-dark hover:bg-white hover:text-brand-carmine";
+            });
+            const activeNavBtn = document.getElementById(`nav-${view}`);
+            if (activeNavBtn) activeNavBtn.className = "w-full flex items-center gap-4 px-4 py-3 rounded-2xl font-semibold text-sm transition-all bg-brand-purple text-white shadow-sm";
+
+            // Ações específicas de rota
+            if (view === 'notificacoes') renderNotificacoes();
+            if (view === 'salvos') renderSalvos();
+            if (view === 'perfil') renderPerfilView(param);
+        }
+
+        function abrirPerfilProprio() {
+            targetPerfilId = STORE.currentUser.id;
+            routerNav('perfil', targetPerfilId);
+        }
+
+        function abrirPerfilOutro(userId) {
+            targetPerfilId = userId;
+            routerNav('perfil', userId);
+        }
+
+        /* ==========================================================================
+           RENDERIZAÇÃO DO FEED E POSTS
+           ========================================================================== */
+        function renderFeed() {
+            const container = document.getElementById('feedPostsContainer');
+            container.innerHTML = '';
+
+            let filteredPosts = [...STORE.posts];
+
+            if (currentFeedTab === 'seguindo') {
+                filteredPosts = STORE.posts.filter(p => STORE.currentUser.following.includes(p.authorId) || p.authorId === STORE.currentUser.id);
+            } else if (currentFeedTab === 'recentes') {
+                filteredPosts.reverse();
+            }
+
+            if (filteredPosts.length === 0) {
+                container.innerHTML = `
+                    <div class="p-8 text-center space-y-2">
+                        <i class="fa-solid fa-comments text-3xl text-brand-carmine/40"></i>
+                        <h4 class="font-serif font-bold text-brand-purple">Nenhuma publicação por aqui ainda.</h4>
+                        <p class="text-xs text-brand-muted">Seja a primeira pessoa a compartilhar um relato ou reflexão!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filteredPosts.forEach(post => {
+                container.appendChild(criarPostElement(post));
+            });
+        }
+
+        function criarPostElement(post) {
+            const isLiked = post.likes.includes(STORE.currentUser.id);
+            const isSaved = STORE.currentUser.savedPosts.includes(post.id);
+            const isOwner = post.authorId === STORE.currentUser.id;
+
+            const article = document.createElement('article');
+            article.className = 'p-4 hover:bg-brand-roseSoft/30 transition-colors space-y-3';
+            article.id = `post-elem-${post.id}`;
+
+            article.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <div class="flex items-center gap-3 cursor-pointer" onclick="abrirPerfilOutro('${post.authorId}')">
+                        <img src="${post.authorAvatar}" alt="${post.authorName}" class="w-10 h-10 rounded-full object-cover border border-brand-roseBorder">
+                        <div>
+                            <div class="flex items-center gap-1.5">
+                                <strong class="text-xs font-bold text-brand-purple hover:text-brand-carmine">${post.authorName}</strong>
+                                ${post.isVerified ? '<span class="text-brand-carmine text-[11px]"><i class="fa-solid fa-circle-check"></i></span>' : ''}
+                            </div>
+                            <span class="text-[11px] text-brand-muted">${post.authorHandle} • ${post.createdAt}</span>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <button class="text-brand-muted hover:text-brand-carmine p-1 text-xs"><i class="fa-solid fa-ellipsis"></i></button>
+                        <div class="hidden group-hover:block absolute right-0 top-6 w-36 bg-white border border-brand-roseBorder rounded-xl shadow-lg z-20 text-xs py-1">
+                            ${isOwner ? `<button onclick="excluirPost('${post.id}')" class="w-full text-left px-3 py-1.5 text-red-600 hover:bg-red-50 font-semibold"><i class="fa-solid fa-trash mr-1"></i> Excluir</button>` : ''}
+                            <button onclick="abrirModalDenuncia('${post.id}')" class="w-full text-left px-3 py-1.5 text-brand-dark hover:bg-brand-roseSoft"><i class="fa-solid fa-flag mr-1"></i> Denunciar</button>
+                            <button onclick="copiarLinkPost('${post.id}')" class="w-full text-left px-3 py-1.5 text-brand-dark hover:bg-brand-roseSoft"><i class="fa-solid fa-link mr-1"></i> Copiar Link</button>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-xs sm:text-sm text-brand-dark leading-relaxed whitespace-pre-line">${formatarTextoPost(post.content)}</p>
+
+                ${post.image ? `<div class="rounded-2xl overflow-hidden max-h-80 border border-brand-roseBorder"><img src="${post.image}" alt="Anexo" class="w-full h-full object-cover"></div>` : ''}
+
+                <!-- BARRA DE AÇÕES DO POST -->
+                <div class="flex items-center justify-between text-xs text-brand-muted pt-2 border-t border-gray-100">
+                    <button onclick="toggleCurtirPost('${post.id}')" class="flex items-center gap-1.5 hover:text-brand-carmine transition-colors ${isLiked ? 'text-brand-carmine font-bold' : ''}">
+                        <i class="${isLiked ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+                        <span>${post.likes.length}</span>
+                    </button>
+
+                    <button onclick="abrirModalResposta('${post.id}')" class="flex items-center gap-1.5 hover:text-brand-carmine transition-colors">
+                        <i class="fa-regular fa-comment"></i>
+                        <span>${post.replies.length}</span>
+                    </button>
+
+                    <button onclick="toggleSalvarPost('${post.id}')" class="flex items-center gap-1.5 hover:text-brand-carmine transition-colors ${isSaved ? 'text-brand-purple font-bold' : ''}">
+                        <i class="${isSaved ? 'fa-solid' : 'fa-regular'} fa-bookmark"></i>
+                        <span class="hidden sm:inline">${isSaved ? 'Salvo' : 'Salvar'}</span>
+                    </button>
+                </div>
+
+                <!-- RESPOSTAS/COMENTÁRIOS DO POST -->
+                ${post.replies.length > 0 ? `
+                    <div class="mt-2 pl-4 border-l-2 border-brand-roseBorder space-y-2 pt-1">
+                        ${post.replies.map(r => `
+                            <div class="text-xs bg-brand-roseSoft/50 p-2.5 rounded-xl">
+                                <strong class="text-brand-purple font-bold">${r.authorName}</strong> <span class="text-brand-muted text-[10px]">${r.authorHandle}</span>
+                                <p class="text-brand-dark mt-0.5">${r.content}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+            `;
+
+            return article;
+        }
+
+        function formatarTextoPost(texto) {
+            return texto.replace(/(#\w+)/g, '<span class="text-brand-carmine font-semibold cursor-pointer" onclick="filtrarPorHashtag(\'$1\')">$1</span>');
+        }
+
+        function trocarAbaFeed(aba) {
+            currentFeedTab = aba;
+            document.querySelectorAll('[id^="tab-"]').forEach(btn => btn.className = "flex-1 py-3 text-center border-b-2 border-transparent hover:text-brand-purple");
+            document.getElementById(`tab-${aba}`).className = "flex-1 py-3 text-center border-b-2 border-brand-carmine text-brand-carmine";
+            renderFeed();
+        }
+
+        /* ==========================================================================
+           COMPOSITOR DE PUBLICAÇÃO
+           ========================================================================== */
+        let tempComposerImageBase64 = "";
+
+        function atualizarContadorChar() {
+            const txt = document.getElementById('inputPostText').value;
+            document.getElementById('charCounter').innerText = `${txt.length}/500`;
+        }
+
+        function carregarPreviewImagemComposer(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    tempComposerImageBase64 = e.target.result;
+                    document.getElementById('imgPreviewPost').src = tempComposerImageBase64;
+                    document.getElementById('previewPostImageWrapper').classList.remove('hidden');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removerImagemComposer() {
+            tempComposerImageBase64 = "";
+            document.getElementById('previewPostImageWrapper').classList.add('hidden');
+            document.getElementById('inputPostImage').value = "";
+        }
+
+        function publicarPost() {
+            const txt = document.getElementById('inputPostText').value.trim();
+            if (!txt && !tempComposerImageBase64) {
+                alert("Por favor, escreva uma mensagem ou anexe uma imagem para publicar.");
+                return;
+            }
+
+            const novoPost = {
+                id: `post-${Date.now()}`,
+                authorId: STORE.currentUser.id,
+                authorName: STORE.currentUser.name,
+                authorHandle: STORE.currentUser.handle,
+                authorAvatar: STORE.currentUser.avatar,
+                isVerified: STORE.currentUser.isVerified,
+                content: txt,
+                image: tempComposerImageBase64,
+                createdAt: "Agora mesmo",
+                likes: [],
+                replies: [],
+                category: "comunidade"
+            };
+
+            STORE.posts.unshift(novoPost);
+            document.getElementById('inputPostText').value = "";
+            removerImagemComposer();
+            atualizarContadorChar();
+            renderFeed();
+        }
+
+        function inserirHashtagExemplo(tag) {
+            const input = document.getElementById('inputPostText');
+            input.value += ` ${tag} `;
+            atualizarContadorChar();
+            input.focus();
+        }
+
+        /* ==========================================================================
+           AÇÕES DE INTERAÇÃO (CURTIR, SALVAR, EXCLUIR)
+           ========================================================================== */
+        function toggleCurtirPost(postId) {
+            const post = STORE.posts.find(p => p.id === postId);
+            if (!post) return;
+
+            const idx = post.likes.indexOf(STORE.currentUser.id);
+            if (idx > -1) {
+                post.likes.splice(idx, 1);
+            } else {
+                post.likes.push(STORE.currentUser.id);
+            }
+            renderFeed();
+        }
+
+        function toggleSalvarPost(postId) {
+            const idx = STORE.currentUser.savedPosts.indexOf(postId);
+            if (idx > -1) {
+                STORE.currentUser.savedPosts.splice(idx, 1);
+            } else {
+                STORE.currentUser.savedPosts.push(postId);
+            }
+            renderFeed();
+        }
+
+        function excluirPost(postId) {
+            if (confirm("Tem certeza de que deseja excluir esta publicação?")) {
+                STORE.posts = STORE.posts.filter(p => p.id !== postId);
+                renderFeed();
+            }
+        }
+
+        function copiarLinkPost(postId) {
+            const url = `${window.location.origin}/comunidade#post-${postId}`;
+            navigator.clipboard.writeText(url);
+            alert("Link da publicação copiado para a área de transferência!");
+        }
+
+        /* ==========================================================================
+           VIEW DE PERFIL INDIVIDUAL DO USUÁRIO
+           ========================================================================== */
+        function renderPerfilView(userId) {
+            const targetId = userId || STORE.currentUser.id;
+            const isSelf = targetId === STORE.currentUser.id;
+            const user = isSelf ? STORE.currentUser : (STORE.users.find(u => u.id === targetId) || STORE.currentUser);
+
+            document.getElementById('perfilNomeDisplay').innerText = user.name;
+            document.getElementById('perfilHandleDisplay').innerText = user.handle;
+            document.getElementById('perfilBioDisplay').innerText = user.bio || "Sem biografia cadastrada.";
+            document.getElementById('perfilAvatarImg').src = user.avatar;
+            document.getElementById('perfilDataEntrada').innerText = user.joinedDate || "2026";
+            document.getElementById('perfilBadgeVerificado').classList.toggle('hidden', !user.isVerified);
+
+            if (user.banner) {
+                document.getElementById('perfilBannerImg').src = user.banner;
+                document.getElementById('perfilBannerImg').classList.remove('hidden');
+            } else {
+                document.getElementById('perfilBannerImg').classList.add('hidden');
+            }
+
+            document.getElementById('perfilSeguidoresCount').innerText = user.followers ? user.followers.length : 0;
+            document.getElementById('perfilSeguindoCount').innerText = user.following ? user.following.length : 0;
+
+            // Renderizar Botões de Ação
+            const actionContainer = document.getElementById('perfilActionButtons');
+            if (isSelf) {
+                actionContainer.innerHTML = `<button onclick="abrirModalEdicaoPerfil()" class="px-4 py-1.5 rounded-full border border-brand-purple text-brand-purple font-bold text-xs hover:bg-brand-purple hover:text-white transition-all">Editar Perfil</button>`;
+            } else {
+                const isFollowing = STORE.currentUser.following.includes(user.id);
+                actionContainer.innerHTML = `
+                    <button onclick="toggleSeguirUsuario('${user.id}')" class="px-5 py-1.5 rounded-full ${isFollowing ? 'bg-brand-purple text-white' : 'bg-brand-carmine text-white'} font-bold text-xs shadow-sm">
+                        ${isFollowing ? 'Seguindo' : 'Seguir'}
+                    </button>
+                `;
+            }
+
+            renderPerfilPosts(user.id);
+        }
+
+        function renderPerfilPosts(userId) {
+            const container = document.getElementById('perfilPostsContainer');
+            container.innerHTML = '';
+
+            const userPosts = STORE.posts.filter(p => p.authorId === userId);
+            if (userPosts.length === 0) {
+                container.innerHTML = `<div class="p-6 text-center text-xs text-brand-muted">Nenhuma publicação cadastrada neste perfil.</div>`;
+                return;
+            }
+
+            userPosts.forEach(post => {
+                container.appendChild(criarPostElement(post));
+            });
+        }
+
+        function toggleSeguirUsuario(userId) {
+            const idx = STORE.currentUser.following.indexOf(userId);
+            if (idx > -1) {
+                STORE.currentUser.following.splice(idx, 1);
+            } else {
+                STORE.currentUser.following.push(userId);
+            }
+            renderPerfilView(userId);
+        }
+
+        function syncUserProfileView() {
+            document.getElementById('sidebarUserAvatar').src = STORE.currentUser.avatar;
+            document.getElementById('sidebarUserName').innerText = STORE.currentUser.name;
+            document.getElementById('sidebarUserHandle').innerText = STORE.currentUser.handle;
+            document.getElementById('composerUserAvatar').src = STORE.currentUser.avatar;
+
+            // Se for admin, exibe o painel de moderação
+            if (STORE.currentUser.isAdmin) {
+                document.getElementById('nav-moderacao').classList.remove('hidden');
+            }
+        }
+
+        /* ==========================================================================
+           MODAL DE EDIÇÃO DE PERFIL
+           ========================================================================== */
+        function abrirModalEdicaoPerfil() {
+            document.getElementById('editNome').value = STORE.currentUser.name;
+            document.getElementById('editHandle').value = STORE.currentUser.handle.replace('@','');
+            document.getElementById('editBio').value = STORE.currentUser.bio;
+            document.getElementById('editAvatarUrl').value = STORE.currentUser.avatar;
+            document.getElementById('editBannerUrl').value = STORE.currentUser.banner || '';
+
+            document.getElementById('modalEdicaoPerfil').classList.remove('hidden');
+        }
+
+        function fecharModalEdicaoPerfil() {
+            document.getElementById('modalEdicaoPerfil').classList.add('hidden');
+        }
+
+        function salvarPerfilSubmit(e) {
+            e.preventDefault();
+            STORE.currentUser.name = document.getElementById('editNome').value.trim();
+            STORE.currentUser.handle = '@' + document.getElementById('editHandle').value.trim();
+            STORE.currentUser.bio = document.getElementById('editBio').value.trim();
+            if (document.getElementById('editAvatarUrl').value) STORE.currentUser.avatar = document.getElementById('editAvatarUrl').value.trim();
+            if (document.getElementById('editBannerUrl').value) STORE.currentUser.banner = document.getElementById('editBannerUrl').value.trim();
+
+            fecharModalEdicaoPerfil();
+            syncUserProfileView();
+            renderPerfilView(STORE.currentUser.id);
+        }
+
+        /* ==========================================================================
+           MODAIS DE RESPOSTA E DENÚNCIA
+           ========================================================================== */
+        function abrirModalResposta(postId) {
+            replyTargetPostId = postId;
+            const post = STORE.posts.find(p => p.id === postId);
+            if (post) {
+                document.getElementById('modalTargetPostPreview').innerHTML = `
+                    <strong>${post.authorName} (${post.authorHandle})</strong>
+                    <p class="text-brand-muted truncate">${post.content}</p>
+                `;
+            }
+            document.getElementById('modalResposta').classList.remove('hidden');
+        }
+
+        function fecharModalResposta() {
+            document.getElementById('modalResposta').classList.add('hidden');
+            document.getElementById('inputRespostaText').value = '';
+        }
+
+        function enviarRespostaSubmit() {
+            const txt = document.getElementById('inputRespostaText').value.trim();
+            if (!txt) return;
+
+            const post = STORE.posts.find(p => p.id === replyTargetPostId);
+            if (post) {
+                post.replies.push({
+                    id: `rep-${Date.now()}`,
+                    authorName: STORE.currentUser.name,
+                    authorHandle: STORE.currentUser.handle,
+                    content: txt,
+                    createdAt: "Agora"
+                });
+                renderFeed();
+            }
+            fecharModalResposta();
+        }
+
+        function abrirModalDenuncia(postId) {
+            document.getElementById('modalDenuncia').classList.remove('hidden');
+        }
+
+        function fecharModalDenuncia() {
+            document.getElementById('modalDenuncia').classList.add('hidden');
+        }
+
+        function enviarDenunciaSubmit() {
+            alert("Denúncia enviada com sucesso à equipe de moderação. Agradecemos por manter a comunidade segura.");
+            fecharModalDenuncia();
+        }
+
+        /* ==========================================================================
+           OUTRAS VIEWS (NOTIFICAÇÕES, SALVOS, SUGERIDOS)
+           ========================================================================== */
+        function renderNotificacoes() {
+            const container = document.getElementById('notificacoesListContainer');
+            container.innerHTML = '';
+
+            STORE.notificacoes.forEach(n => {
+                const div = document.createElement('div');
+                div.className = `p-4 flex justify-between items-center text-xs ${n.lida ? 'bg-white' : 'bg-brand-roseSoft/60'}`;
+                div.innerHTML = `
+                    <div>
+                        <p class="text-brand-purple font-medium">${n.texto}</p>
+                        <span class="text-[10px] text-brand-muted">${n.data}</span>
+                    </div>
+                    ${!n.lida ? '<span class="w-2 h-2 rounded-full bg-brand-carmine"></span>' : ''}
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function marcarTodasNotificacoesLidas() {
+            STORE.notificacoes.forEach(n => n.lida = true);
+            renderNotificacoes();
+        }
+
+        function renderSalvos() {
+            const container = document.getElementById('salvosPostsContainer');
+            container.innerHTML = '';
+
+            const saved = STORE.posts.filter(p => STORE.currentUser.savedPosts.includes(p.id));
+            if (saved.length === 0) {
+                container.innerHTML = `<div class="p-8 text-center text-xs text-brand-muted">Você ainda não possui publicações salvas.</div>`;
+                return;
+            }
+
+            saved.forEach(post => container.appendChild(criarPostElement(post)));
+        }
+
+        function renderPerfisSugeridos() {
+            const container = document.getElementById('perfisSugeridosContainer');
+            container.innerHTML = '';
+
+            STORE.users.forEach(user => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center justify-between text-xs';
+                div.innerHTML = `
+                    <div class="flex items-center gap-2 cursor-pointer" onclick="abrirPerfilOutro('${user.id}')">
+                        <img src="${user.avatar}" alt="${user.name}" class="w-8 h-8 rounded-full object-cover border border-brand-roseBorder">
+                        <div class="truncate">
+                            <strong class="block text-brand-purple hover:text-brand-carmine truncate">${user.name}</strong>
+                            <span class="block text-[10px] text-brand-muted truncate">${user.handle}</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleSeguirUsuario('${user.id}')" class="px-3 py-1 rounded-full bg-brand-purple text-white text-[11px] font-bold">Ver</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function focarCompositor() {
+            routerNav('feed');
+            document.getElementById('inputPostText').focus();
+        }
+
+        function saidaRapida() {
+            window.location.replace("https://www.google.com");
+        }
+
+        function logoutSimulado() {
+            alert("Sessão da comunidade encerrada com segurança.");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
